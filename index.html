@@ -9,7 +9,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            /* टेक्स्ट सिलेक्शन को रोकने के लिए ताकि कोई कोड कॉपी न कर सके */
+            
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -274,26 +274,26 @@
     </audio>
 
     <script>
-        // 1. राइट क्लिक / लॉन्ग प्रेस (Context Menu) को पूरी तरह ब्लॉक करने के लिए
+        
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
-        // 2. PC/Laptop पर Inspect Element के सभी शॉर्टकट कीज को ब्लॉक करने के लिए
+        
         document.onkeydown = function(e) {
-            // F12 की को ब्लॉक किया
+            
             if (e.keyCode == 123) {
                 return false;
             }
-            // Ctrl+Shift+I (Inspect) को ब्लॉक किया
+            // Ctrl+Shift+I (Inspect) 
             if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
                 return false;
             }
-            // Ctrl+Shift+J (Console) को ब्लॉक किया
+            // Ctrl+Shift+J (Console) 
             if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
                 return false;
             }
-            // Ctrl+U (View Source) को ब्लॉक किया
+            // Ctrl+U (View Source) 
             if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
                 return false;
             }
@@ -303,8 +303,8 @@
             const audio = document.getElementById("audio1");
             const overlay = document.getElementById("audio-overlay");
             
-            // ऑडियो का डिफ़ॉल्ट वॉल्यूम (40%)
-            audio.volume = 0.4; 
+            //  (70%)
+            audio.volume = 0.7; 
 
             audio.play().catch(error => {
                 console.log("Audio play failed or blocked:", error);
