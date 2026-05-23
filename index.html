@@ -27,6 +27,7 @@
             padding: 20px;
             color: #4a2c3a;
             overflow-x: hidden;
+            position: relative;
         }
 
         #audio-overlay {
@@ -93,6 +94,8 @@
             box-shadow: 0 15px 35px rgba(221, 142, 165, 0.3);
             text-align: center;
             animation: fadeIn 1.2s ease-in-out;
+            position: relative;
+            z-index: 5;
         }
 
         .decor-emoji {
@@ -191,10 +194,70 @@
         }
 
         .venue-date {
-            margin-top: 25px;
+            margin-top: 80px;
             font-size: 1rem;
             color: #644856;
             font-weight: 500;
+            margin-bottom: 35px;
+        }
+
+        .sharma-organisation {
+            font-size: 0.95rem;
+            color: #880e4f;
+            margin-top: 80px;
+        }
+
+          .crafted-by a:hover {
+    text-decoration: underline !important;
+    color: #f72585 !important;
+}
+
+
+        .crafted-by {
+            font-size: 0.8rem;
+            color: #7d5a6b;
+            margin-top: 27px;
+            border-top: 2px dashed rgba(255, 133, 161, 0.4);
+            padding-top: 15px;
+        }
+
+        /* --- 1. FLOATING HEARTS (नीचे वाले दिल - BACK-LAYER) --- */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1; 
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.6rem; 
+            color: rgba(255, 105, 180, 0.65);
+            bottom: -50px;
+            animation: floatHeart var(--float-duration, 6s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translate(var(--translate-x, 0), -105vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- 2. FALLING HEARTS (ऊपर वाले दिल - FIRST LAYER) --- */
+        #falling-hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 10; /* FIRST LAYER - कार्ड के आगे */
         }
 
         @keyframes fadeIn {
@@ -218,6 +281,25 @@
 </head>
 <body>
 
+    <!-- 1. FLOATING HEARTS (नीचे से ऊपर जाने वाले बैकग्राउंड दिल) -->
+    <div class="floating-hearts">
+        <div class="heart" style="left: 2%; --float-duration: 7s; --delay: 0s; --translate-x: 15px;">💝</div>
+        <div class="heart" style="left: 8%; --float-duration: 9s; --delay: 2s; --translate-x: -10px;">💖</div>
+        <div class="heart" style="left: 15%; --float-duration: 6s; --delay: 1s; --translate-x: 25px;">💗</div>
+        
+        <div class="heart" style="left: 28%; --float-duration: 8s; --delay: 3s; --translate-x: -30px;">💓</div>
+        <div class="heart" style="left: 42%; --float-duration: 10s; --delay: 0s; --translate-x: 20px;">💕</div>
+        <div class="heart" style="left: 58%; --float-duration: 7s; --delay: 4s; --translate-x: -20px;">💝</div>
+        <div class="heart" style="left: 72%; --float-duration: 9s; --delay: 1.5s; --translate-x: 30px;">💖</div>
+        
+        <div class="heart" style="left: 83%; --float-duration: 6s; --delay: 2.5s; --translate-x: -15px;">💗</div>
+        <div class="heart" style="left: 92%; --float-duration: 8s; --delay: 0.5s; --translate-x: 20px;">💓</div>
+        <div class="heart" style="left: 96%; --float-duration: 11s; --delay: 3.5s; --translate-x: -10px;">💕</div>
+    </div>
+
+    <!-- 2. FALLING HEARTS CONTAINER -->
+    <div id="falling-hearts-container"></div>
+
     <div id="audio-overlay" onclick="startCelebration()">
         <div class="popup-box">
             <h2>Welcome to Sharma Ji's Wedding! 🎉</h2>
@@ -230,7 +312,7 @@
     <div class="wedding-card">
         <span class="decor-emoji" id="decor-emoji">✨ 💍 ✨</span>
         <h1 id="main-title">Save The Date</h1>
-        <div class="sub-heading" id="sub-title">The Wedding Celebration</div>
+        <div class="sub-heading" id="sub-title">The Wedding Celebration Countdown</div>
 
         <div class="countdown-wrapper" id="timer-container">
             <div class="countdown-box">
@@ -265,8 +347,15 @@
 
         <div class="venue-date">
             <p>📅 Monday, 22 June 2026</p>
+            <p>-----------------------------------------</p>
             <p>📍 Isi Gole par 🌍</p>
+            <p>------------------------</p>
         </div>
+
+        <p> </p>
+        <p class="sharma-organisation">Design By - <strong> @Sumitt__Sharma :) </strong></p>
+        <p class="crafted-by">©2026 Crafted by <strong><a href="https://www.instagram.com/Sumitt__Sharma" target="_blank" style="color: #9d1e49; text-decoration: none;">TheSumitSharma.in</a></strong>. All Rights Reserved.</p>
+
     </div>
 
     <audio id="audio1" loop>
@@ -275,26 +364,20 @@
     </audio>
 
     <script>
-        
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
-        
         document.onkeydown = function(e) {
-            
             if (e.keyCode == 123) {
                 return false;
             }
-            // Ctrl+Shift+I (Inspect) 
             if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
                 return false;
             }
-            // Ctrl+Shift+J (Console) 
             if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
                 return false;
             }
-            // Ctrl+U (View Source) 
             if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
                 return false;
             }
@@ -304,7 +387,6 @@
             const audio = document.getElementById("audio1");
             const overlay = document.getElementById("audio-overlay");
             
-            //  (70%)
             audio.volume = 0.7; 
 
             audio.play().catch(error => {
@@ -312,6 +394,52 @@
             });
             overlay.style.display = "none";
         }
+
+        /* --- FALLING HEARTS GENERATOR (SLOWER & LIGHTER) --- */
+        const fallingHeartsContainer = document.getElementById('falling-hearts-container');
+        const heartTypes = ['❤', '💖', '💝', '💗', '💕'];
+
+        function createFallingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            heart.style.position = 'absolute';
+            heart.style.fontSize = Math.random() * 12 + 11 + 'px'; // हल्के छोटे और एलिगेंट साइज
+            heart.style.color = `rgba(255, ${Math.floor(Math.random() * 60 + 110)}, ${Math.floor(Math.random() * 100 + 130)}, ${Math.random() * 0.4 + 0.4})`;
+            
+            // वाइडर बिखराव (Scattered): लेफ्ट साइड (0-28%) | राइट साइड (72-98%)
+            const isLeft = Math.random() < 0.5;
+            const randomX = isLeft ? (Math.random() * 28) : (72 + Math.random() * 26);
+            
+            heart.style.left = randomX + 'vw';
+            heart.style.top = '-30px';
+            heart.style.opacity = Math.random() * 0.4 + 0.5;
+            heart.style.zIndex = '10'; // FIRST LAYER
+            heart.style.pointerEvents = 'none';
+            
+            // स्पीड काफी कम कर दी (8 से 11 सेकंड तक हवा में झूलते हुए गिरेंगे)
+            const animationDuration = Math.random() * 3 + 8; 
+            const horizontalSwing = Math.random() * 50 - 25; // नेचुरल बिखराव वेव
+            
+            heart.animate([
+                { transform: `translateY(0) translateX(0) rotate(${Math.random() * 90 - 45}deg)` },
+                { transform: `translateY(35vh) translateX(${horizontalSwing}px) rotate(${Math.random() * 90 - 45}deg)` },
+                { transform: `translateY(70vh) translateX(${-horizontalSwing}px) rotate(${Math.random() * 90 - 45}deg)` },
+                { transform: `translateY(110vh) translateX(${horizontalSwing}px) rotate(${Math.random() * 90 - 45}deg)` }
+            ], {
+                duration: animationDuration * 1000,
+                easing: 'ease-out' // गिरने का मोशन सॉफ्ट रहेगा
+            });
+            
+            fallingHeartsContainer.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, animationDuration * 1000);
+        }
+        
+        // अंतराल बढ़ाकर 600ms किया ताकि एक साथ भीड़ न लगे (कम और प्यारे दिल दिखेंगे)
+        setInterval(createFallingHeart, 600);
+        /* ----------------------------------------------------------------- */
 
         function initWeddingCountdown() {
             const weddingStartDate = new Date("June 22, 2026 00:00:00").getTime();
@@ -388,4 +516,5 @@
         window.onload = initWeddingCountdown;
     </script>
 </body>
-</html>
+    </html>
+    
