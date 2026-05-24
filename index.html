@@ -1,670 +1,519 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharma Ji Ki Shaadi 🌟</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
 
-<title>Sharma Ji Ki Shaadi 🌸</title>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1, #fbd3e9);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #4a2c3a;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-<style>
+        #audio-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(74, 44, 58, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
+            animation: fadeIn 0.5s ease-out;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+        .popup-box {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 85%;
+            border: 2px solid #ff85a1;
+        }
 
-    -webkit-user-select:none;
-    user-select:none;
+        .popup-box h2 {
+            color: #9d1e49;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .popup-box p {
+            color: #7d5a6b;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .popup-btn {
+            background: linear-gradient(135deg, #f72585, #7209b7);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .popup-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .wedding-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(221, 142, 165, 0.3);
+            text-align: center;
+            animation: fadeIn 1.2s ease-in-out;
+            position: relative;
+            z-index: 5;
+        }
+
+        .decor-emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #9d1e49;
+            margin-bottom: 5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .sub-heading {
+            font-size: 1.05rem;
+            color: #bc4773;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .countdown-wrapper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 15px 10px;
+            border-radius: 16px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 194, 209, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-box:hover {
+            transform: translateY(-4px);
+        }
+
+        .time-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #9d1e49;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .time-label {
+            font-size: 0.75rem;
+            color: #7d5a6b;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .greetings-msg {
+            font-size: 1.35rem;
+            color: #880e4f;
+            font-weight: 600;
+            margin-bottom: 30px;
+            padding: 12px 20px;
+            background: linear-gradient(90deg, rgba(255,194,209,0.3), rgba(255,229,236,0.3));
+            border-left: 4px solid #ff85a1;
+            border-right: 4px solid #ff85a1;
+            border-radius: 8px;
+            line-height: 1.4;
+        }
+
+        .photo-frame {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto 15px auto;
+            border-radius: 18px;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;  
+        }
+
+        .venue-date {
+            margin-top: 80px;
+            font-size: 1rem;
+            color: #644856;
+            font-weight: 500;
+            margin-bottom: 35px;
+        }
+
+        .sharma-organisation {
+            font-size: 0.95rem;
+            color: #880e4f;
+            margin-top: 80px;
+        }
+
+          .crafted-by a:hover {
+    text-decoration: underline !important;
+    color: #f72585 !important;
 }
 
-body{
-    font-family:'Segoe UI',sans-serif;
-    background:linear-gradient(135deg,#ffe5ec,#ffc2d1,#fbd3e9);
-    min-height:100vh;
 
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-
-    padding:40px 20px;
-
-    overflow-x:hidden;
-    position:relative;
-
-    color:#4a2c3a;
-}
-
-/* =========================
-   FLOATING BACKGROUND HEARTS
-========================= */
-
-.floating-hearts{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:1;
-}
-
-.heart{
-    position:absolute;
-    bottom:-50px;
-    font-size:1.5rem;
-    opacity:.7;
-
-    animation:floatHeart var(--duration) linear infinite;
-    animation-delay:var(--delay);
-}
-
-@keyframes floatHeart{
-
-    0%{
-        transform:translateY(0) translateX(0) rotate(0deg);
-        opacity:0;
-    }
-
-    10%{
-        opacity:1;
-    }
-
-    100%{
-        transform:translateY(-120vh)
-        translateX(var(--translateX))
-        rotate(360deg);
-
-        opacity:0;
-    }
-}
-
-/* =========================
-   FALLING HEARTS
-========================= */
-
-#falling-hearts-container{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:2;
-}
-
-.fall-heart{
-    position:absolute;
-    top:-30px;
-
-    animation-name:falling;
-    animation-timing-function:linear;
-    animation-fill-mode:forwards;
-}
-
-@keyframes falling{
-
-    0%{
-        transform:translateY(-30px) rotate(0deg);
-        opacity:1;
-    }
-
-    100%{
-        transform:translateY(120vh) rotate(360deg);
-        opacity:0;
-    }
-}
-
-/* =========================
-   CARD
-========================= */
-
-.wedding-card{
-
-    width:100%;
-    max-width:560px;
-
-    background:rgba(255,255,255,.65);
-
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-
-    border-radius:24px;
-
-    padding:35px 20px;
-
-    text-align:center;
-
-    position:relative;
-    z-index:5;
-
-    border:1px solid rgba(255,255,255,.5);
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.08);
-
-    animation:fadeIn 1s ease;
-}
-
-@keyframes fadeIn{
-
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.decor-emoji{
-    font-size:2rem;
-    display:block;
-    margin-bottom:10px;
-
-    animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-
-    0%,100%{
-        transform:scale(1);
-    }
-
-    50%{
-        transform:scale(1.08);
-    }
-}
-
-h1{
-    color:#9d1e49;
-    font-size:2.2rem;
-    margin-bottom:5px;
-}
-
-.sub-heading{
-    color:#bc4773;
-    margin-bottom:30px;
-
-    font-weight:600;
-    letter-spacing:1px;
-}
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-.countdown-wrapper{
-
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-
-    gap:12px;
-
-    margin-bottom:30px;
-}
-
-.countdown-box{
-
-    background:rgba(255,255,255,.85);
-
-    border-radius:16px;
-
-    padding:15px 10px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.05);
-}
-
-.time-value{
-
-    display:block;
-
-    font-size:1.7rem;
-    font-weight:700;
-
-    color:#9d1e49;
-}
-
-.time-label{
-
-    font-size:.75rem;
-
-    color:#7d5a6b;
-
-    text-transform:uppercase;
-}
-
-/* =========================
-   MESSAGE
-========================= */
-
-.greetings-msg{
-
-    font-size:1.2rem;
-
-    color:#880e4f;
-
-    background:rgba(255,255,255,.4);
-
-    border-left:4px solid #ff85a1;
-    border-right:4px solid #ff85a1;
-
-    padding:12px;
-
-    border-radius:10px;
-
-    margin-bottom:25px;
-}
-
-/* =========================
-   IMAGES
-========================= */
-
-.photo-frame{
-
-    width:100%;
-    max-width:320px;
-
-    margin:0 auto 18px;
-
-    padding:8px;
-
-    background:white;
-
-    border-radius:18px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
-
-.photo-frame img{
-
-    width:100%;
-    display:block;
-
-    border-radius:12px;
-
-    object-fit:cover;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-.venue-date{
-
-    margin-top:25px;
-
-    color:#644856;
-
-    line-height:1.8;
-}
-
-.sharma-organisation{
-
-    margin-top:20px;
-
-    color:#880e4f;
-}
-
-.crafted-by{
-
-    margin-top:18px;
-
-    padding-top:15px;
-
-    border-top:2px dashed rgba(255,133,161,.4);
-
-    font-size:.85rem;
-}
-
-.crafted-by a{
-
-    color:#9d1e49;
-    text-decoration:none;
-}
-
-.crafted-by a:hover{
-
-    color:#f72585;
-}
-
-/* =========================
-   AUDIO POPUP
-========================= */
-
-#audio-overlay{
-
-    position:fixed;
-    inset:0;
-
-    background:rgba(74,44,58,.85);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    z-index:9999;
-}
-
-.popup-box{
-
-    background:white;
-
-    width:85%;
-    max-width:400px;
-
-    padding:30px 20px;
-
-    border-radius:20px;
-
-    text-align:center;
-}
-
-.popup-box h2{
-
-    color:#9d1e49;
-    margin-bottom:10px;
-}
-
-.popup-box p{
-
-    margin-bottom:10px;
-}
-
-.popup-btn{
-
-    margin-top:10px;
-
-    border:none;
-
-    background:linear-gradient(135deg,#f72585,#7209b7);
-
-    color:white;
-
-    padding:12px 28px;
-
-    border-radius:30px;
-
-    cursor:pointer;
-
-    font-weight:bold;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:480px){
-
-    .countdown-wrapper{
-        gap:8px;
-    }
-
-    .time-value{
-        font-size:1.3rem;
-    }
-
-    .time-label{
-        font-size:.6rem;
-    }
-
-    h1{
-        font-size:1.8rem;
-    }
-
-    .greetings-msg{
-        font-size:1rem;
-    }
-}
-
-</style>
+        .crafted-by {
+            font-size: 0.8rem;
+            color: #7d5a6b;
+            margin-top: 27px;
+            border-top: 2px dashed rgba(255, 133, 161, 0.4);
+            padding-top: 15px;
+        }
+
+        /* --- 1. FLOATING HEARTS (नीचे वाले दिल - BACK-LAYER) --- */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1; 
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.6rem; 
+            color: rgba(255, 105, 180, 0.65);
+            bottom: -50px;
+            animation: floatHeart var(--float-duration, 6s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translate(var(--translate-x, 0), -105vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- 2. FALLING HEARTS (ऊपर वाले दिल - FIRST LAYER) --- */
+        #falling-hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 10; /* FIRST LAYER - कार्ड के आगे */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 480px) {
+            .wedding-card { padding: 30px 15px; }
+            h1 { font-size: 1.8rem; }
+            .time-value { font-size: 1.4rem; }
+            .time-label { font-size: 0.65rem; }
+            .greetings-msg { font-size: 1.15rem; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- FLOATING HEARTS -->
+    <!-- 1. FLOATING HEARTS (नीचे से ऊपर जाने वाले बैकग्राउंड दिल) -->
+    <div class="floating-hearts">
+        <div class="heart" style="left: 2%; --float-duration: 7s; --delay: 0s; --translate-x: 15px;">💝</div>
+        <div class="heart" style="left: 8%; --float-duration: 9s; --delay: 2s; --translate-x: -10px;">💖</div>
+        <div class="heart" style="left: 15%; --float-duration: 6s; --delay: 1s; --translate-x: 25px;">💗</div>
+        
+        <div class="heart" style="left: 28%; --float-duration: 8s; --delay: 3s; --translate-x: -30px;">💓</div>
+        <div class="heart" style="left: 42%; --float-duration: 10s; --delay: 0s; --translate-x: 20px;">💕</div>
+        <div class="heart" style="left: 58%; --float-duration: 7s; --delay: 4s; --translate-x: -20px;">💝</div>
+        <div class="heart" style="left: 72%; --float-duration: 9s; --delay: 1.5s; --translate-x: 30px;">💖</div>
+        
+        <div class="heart" style="left: 83%; --float-duration: 6s; --delay: 2.5s; --translate-x: -15px;">💗</div>
+        <div class="heart" style="left: 92%; --float-duration: 8s; --delay: 0.5s; --translate-x: 20px;">💓</div>
+        <div class="heart" style="left: 96%; --float-duration: 11s; --delay: 3.5s; --translate-x: -10px;">💕</div>
+    </div>
 
-<div class="floating-hearts">
+    <!-- 2. FALLING HEARTS CONTAINER -->
+    <div id="falling-hearts-container"></div>
 
-<div class="heart" style="left:5%; --duration:7s; --delay:0s; --translateX:20px;">💖</div>
+    <div id="audio-overlay" onclick="startCelebration()">
+        <div class="popup-box">
+            <h2>Welcome to Sharma Ji's Wedding! 🎉</h2>
+            <p>Tap anywhere For Skip</p>
+            <p>Wait & Listen till the End (~30 sec.) 😅</p>
+            <button class="popup-btn">Start ✨</button>
+        </div>
+    </div>
 
-<div class="heart" style="left:18%; --duration:9s; --delay:2s; --translateX:-20px;">💕</div>
+    <div class="wedding-card">
+        <span class="decor-emoji" id="decor-emoji">✨ 💍 ✨</span>
+        <h1 id="main-title">Save The Date</h1>
+        <div class="sub-heading" id="sub-title">The Wedding Celebration Countdown</div>
 
-<div class="heart" style="left:35%; --duration:8s; --delay:1s; --translateX:30px;">💗</div>
+        <div class="countdown-wrapper" id="timer-container">
+            <div class="countdown-box">
+                <span class="time-value" id="days">00</span>
+                <span class="time-label">Days</span>
+            </div>
+            <div class="countdown-box">
+                <span class="time-value" id="hours">00</span>
+                <span class="time-label">Hours</span>
+            </div>
+            <div class="countdown-box">
+                <span class="time-value" id="minutes">00</span>
+                <span class="time-label">Mins</span>
+            </div>
+            <div class="countdown-box">
+                <span class="time-value" id="seconds">00</span>
+                <span class="time-label">Secs</span>
+            </div>
+        </div>
 
-<div class="heart" style="left:52%; --duration:10s; --delay:3s; --translateX:-15px;">💝</div>
+        <div class="greetings-msg" id="greetings-container">
+            "Sharma Ji, Abhi to bahut time baki h...😅" 
+        </div>
 
-<div class="heart" style="left:70%; --duration:7s; --delay:2s; --translateX:25px;">💖</div>
+        <div class="photo-frame">
+            <img src="pic2.jpg" alt="Bhai Ki Shaadi" onerror="this.onerror=null; this.src='https://plain-apac-prod-public.komododecks.com/202605/23/Fkw0z1daLh8uSO40Ozpw/image.jpg';">
+        </div>
 
-<div class="heart" style="left:88%; --duration:11s; --delay:1s; --translateX:-30px;">💕</div>
+        <div class="photo-frame">
+            <img src="pic1.jpg" alt="Bhai Ki Shaadi" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?w=500&auto=format&fit=crop&q=60';">
+        </div>
 
-</div>
+        <div class="venue-date">
+            <p>📅 Monday, 22 June 2026</p>
+            <p>-----------------------------------------</p>
+            <p>📍 Isi Gole par 🌍</p>
+            <p>------------------------</p>
+        </div>
 
-<!-- FALLING HEARTS -->
-
-<div id="falling-hearts-container"></div>
-
-<!-- AUDIO POPUP -->
-
-<div id="audio-overlay" onclick="startCelebration()">
-
-    <div class="popup-box">
-
-        <h2>Welcome To Sharma Ji's Wedding 🎉</h2>
-
-        <p>Tap Anywhere To Continue</p>
-
-        <p>Enjoy The Music ✨</p>
-
-        <button class="popup-btn">Start 💖</button>
+        
+        <p class="sharma-organisation">Design By - <strong> @Sumitt__Sharma :) </strong></p>
+        <p class="crafted-by">©2026 Crafted by <strong><a href="https://www.instagram.com/Sumitt__Sharma" target="_blank" style="color: #9d1e49; text-decoration: none;">TheSumitSharma.in</a></strong>. All Rights Reserved.</p>
 
     </div>
 
-</div>
-
-<!-- MAIN CARD -->
-
-<div class="wedding-card">
-
-<span class="decor-emoji" id="decor-emoji">✨ 💍 ✨</span>
-
-<h1 id="main-title">Save The Date</h1>
-
-<div class="sub-heading" id="sub-title">
-The Wedding Celebration
-</div>
-
-<!-- TIMER -->
-
-<div class="countdown-wrapper">
-
-<div class="countdown-box">
-<span class="time-value" id="days">00</span>
-<span class="time-label">Days</span>
-</div>
-
-<div class="countdown-box">
-<span class="time-value" id="hours">00</span>
-<span class="time-label">Hours</span>
-</div>
-
-<div class="countdown-box">
-<span class="time-value" id="minutes">00</span>
-<span class="time-label">Minutes</span>
-</div>
-
-<div class="countdown-box">
-<span class="time-value" id="seconds">00</span>
-<span class="time-label">Seconds</span>
-</div>
-
-</div>
-
-<!-- MESSAGE -->
-
-<div class="greetings-msg">
-"Sharma Ji, Abhi to bahut time baki h...😅"
-</div>
-
-<!-- IMAGES -->
-
-<div class="photo-frame">
-
-<img
-src="pic2.jpg"
-alt="Wedding"
-onerror="this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop';"
-/>
-
-</div>
-
-<div class="photo-frame">
-
-<img
-src="pic1.jpg"
-alt="Wedding"
-onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop';"
-/>
-
-</div>
-
-<!-- FOOTER -->
-
-<div class="venue-date">
-
-<p>📅 Monday, 22 June 2026</p>
-<p>📍 Isi Gole Par 🌍</p>
-
-</div>
-
-<p class="sharma-organisation">Design By - <strong>@Sumitt__Sharma :)</strong>
-
-<p class="crafted-by">©2026 Crafted by<strong>
-<a href="https://www.instagram.com/Sumitt__Sharma" target="_blank">
-TheSumitSharma.in
-</a>
-</strong>
-
-</div>
-
-<!-- AUDIO -->
-
-<audio id="audio1" loop>
-
-<source src="audio1.mp3" type="audio/mpeg">
-
-</audio>
-
-<script>
-
-/* =========================
-   DISABLE RIGHT CLICK
-========================= */
-
-document.addEventListener('contextmenu',e=>{
-    e.preventDefault();
-});
-
-/* =========================
-   AUDIO
-========================= */
-
-function startCelebration(){
-
-    const audio=document.getElementById("audio1");
-
-    audio.volume=0.7;
-
-    audio.play().catch(err=>{
-        console.log(err);
-    });
-
-    document.getElementById("audio-overlay").style.display="none";
-}
-
-/* =========================
-   FALLING HEARTS
-========================= */
-
-const container=document.getElementById(
-'falling-hearts-container'
-);
-
-const hearts=['💖','💕','💗','💝','❤'];
-
-function createHeart(){
-
-    const heart=document.createElement('div');
-
-    heart.classList.add('fall-heart');
-
-    heart.innerHTML=
-    hearts[Math.floor(Math.random()*hearts.length)];
-
-    heart.style.left=
-    Math.random()*100+'vw';
-
-    heart.style.fontSize=
-    (Math.random()*14+12)+'px';
-
-    heart.style.animationDuration=
-    (Math.random()*4+6)+'s';
-
-    heart.style.opacity=
-    Math.random()*0.5+0.4;
-
-    container.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },10000);
-}
-
-setInterval(createHeart,500);
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-const weddingDate=
-new Date("June 22, 2026 00:00:00").getTime();
-
-function updateCountdown(){
-
-    const now=new Date().getTime();
-
-    const distance=weddingDate-now;
-
-    const days=Math.floor(
-    distance/(1000*60*60*24));
-
-    const hours=Math.floor(
-    (distance%(1000*60*60*24))
-    /(1000*60*60));
-
-    const minutes=Math.floor(
-    (distance%(1000*60*60))
-    /(1000*60));
-
-    const seconds=Math.floor(
-    (distance%(1000*60))
-    /1000);
-
-    document.getElementById("days").innerText=
-    days;
-
-    document.getElementById("hours").innerText=
-    hours;
-
-    document.getElementById("minutes").innerText=
-    minutes;
-
-    document.getElementById("seconds").innerText=
-    seconds;
-}
-
-updateCountdown();
-
-setInterval(updateCountdown,1000);
-
-</script>
-
+    <audio id="audio1" loop>
+        <source src="audio1.mp3" type="audio/mpeg">
+        <source src="audio1.ogg" type="audio/ogg">
+    </audio>
+
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        };
+
+        function startCelebration() {
+            const audio = document.getElementById("audio1");
+            const overlay = document.getElementById("audio-overlay");
+            
+            audio.volume = 0.7; 
+
+            audio.play().catch(error => {
+                console.log("Audio play failed or blocked:", error);
+            });
+            overlay.style.display = "none";
+        }
+
+        /* --- FALLING HEARTS GENERATOR (SLOWER & LIGHTER) --- */
+        const fallingHeartsContainer = document.getElementById('falling-hearts-container');
+        const heartTypes = ['❤', '💖', '💝', '💗', '💕'];
+
+        function createFallingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            heart.style.position = 'absolute';
+            heart.style.fontSize = Math.random() * 12 + 11 + 'px'; // हल्के छोटे और एलिगेंट साइज
+            heart.style.color = `rgba(255, ${Math.floor(Math.random() * 60 + 110)}, ${Math.floor(Math.random() * 100 + 130)}, ${Math.random() * 0.4 + 0.4})`;
+            
+            // वाइडर बिखराव (Scattered): लेफ्ट साइड (0-28%) | राइट साइड (72-98%)
+            const isLeft = Math.random() < 0.5;
+            const randomX = isLeft ? (Math.random() * 28) : (72 + Math.random() * 26);
+            
+            heart.style.left = randomX + 'vw';
+            heart.style.top = '-30px';
+            heart.style.opacity = Math.random() * 0.4 + 0.5;
+            heart.style.zIndex = '10'; // FIRST LAYER
+            heart.style.pointerEvents = 'none';
+            
+            // स्पीड काफी कम कर दी (8 से 11 सेकंड तक हवा में झूलते हुए गिरेंगे)
+            const animationDuration = Math.random() * 3 + 8; 
+            const horizontalSwing = Math.random() * 50 - 25; // नेचुरल बिखराव वेव
+            
+            heart.animate([
+                { transform: `translateY(0) translateX(0) rotate(${Math.random() * 90 - 45}deg)` },
+                { transform: `translateY(35vh) translateX(${horizontalSwing}px) rotate(${Math.random() * 90 - 45}deg)` },
+                { transform: `translateY(70vh) translateX(${-horizontalSwing}px) rotate(${Math.random() * 90 - 45}deg)` },
+                { transform: `translateY(110vh) translateX(${horizontalSwing}px) rotate(${Math.random() * 90 - 45}deg)` }
+            ], {
+                duration: animationDuration * 1000,
+                easing: 'ease-out' // गिरने का मोशन सॉफ्ट रहेगा
+            });
+            
+            fallingHeartsContainer.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, animationDuration * 1000);
+        }
+        
+        // अंतराल बढ़ाकर 600ms किया ताकि एक साथ भीड़ न लगे (कम और प्यारे दिल दिखेंगे)
+        setInterval(createFallingHeart, 600);
+        /* ----------------------------------------------------------------- */
+
+        function initWeddingCountdown() {
+            const weddingStartDate = new Date("June 22, 2026 00:00:00").getTime();
+            const stopwatchStartDate = new Date("June 23, 2026 00:00:00").getTime();
+            let currentMode = "";
+
+            setInterval(function() {
+                const now = new Date().getTime();
+
+                if (now < weddingStartDate) {
+                    if (currentMode !== "countdown") {
+                        currentMode = "countdown";
+                    }
+                    const difference = weddingStartDate - now;
+                    updateTimerUI(difference);
+                } 
+                else if (now >= weddingStartDate && now < stopwatchStartDate) {
+                    if (currentMode !== "greeting") {
+                        currentMode = "greeting";
+                        document.getElementById("main-title").innerText = "Shaadi Mubarak! 🍾";
+                        document.getElementById("sub-title").innerText = "The Celebration is Live 🎉";
+                        document.getElementById("decor-emoji").innerText = "🎉 🥳 🎉";
+                        document.getElementById("greetings-container").innerText = "✨ Aaj Sharma Ji Ki Shaadi Hai! Mubarak Ho! ✨";
+                        document.getElementById("timer-container").innerHTML = 
+                            "<div style='grid-column: span 4; font-size: 1.6rem; font-weight: bold; color: #9d1e49; padding: 15px; animation: pulse 1s infinite;'>🎉 Today is the Big Day! Shaadi Mubarak Sharma Ji! 🍾</div>";
+                    }
+                } 
+                else {
+                    if (currentMode !== "stopwatch") {
+                        currentMode = "stopwatch";
+                        document.getElementById("main-title").innerText = "Happily Married ❤️";
+                        document.getElementById("sub-title").innerText = "The Journey Began";
+                        document.getElementById("decor-emoji").innerText = "💖 ✨ 💖";
+                        document.getElementById("greetings-container").innerText = "❤️ वक्त बीत चुका है... ❤️";
+                        document.getElementById("timer-container").innerHTML = `
+                            <div class="countdown-box">
+                                <span class="time-value" id="days">00</span>
+                                <span class="time-label">Days Ago</span>
+                            </div>
+                            <div class="countdown-box">
+                                <span class="time-value" id="hours">00</span>
+                                <span class="time-label">Hrs Ago</span>
+                            </div>
+                            <div class="countdown-box">
+                                <span class="time-value" id="minutes">00</span>
+                                <span class="time-label">Mins Ago</span>
+                            </div>
+                            <div class="countdown-box">
+                                <span class="time-value" id="seconds">00</span>
+                                <span class="time-label">Secs Ago</span>
+                            </div>
+                        `;
+                    }
+                    const difference = now - weddingStartDate;
+                    updateTimerUI(difference);
+                }
+            }, 1000);
+
+            function updateTimerUI(diff) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                if (document.getElementById("days")) {
+                    document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+                    document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+                    document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+                    document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+                }
+            }
+        }
+
+        window.onload = initWeddingCountdown;
+    </script>
 </body>
 </html>
