@@ -202,7 +202,7 @@
         }
 
         .sharma-organisation {
-            font-size: 0.95rem;
+            font-size: 0.75rem;
             color: #880e4f;
             margin-top: 80px;
         }
@@ -221,7 +221,7 @@
             padding-top: 15px;
         }
 
-        /* --- 1. FLOATING HEARTS (नीचे वाले दिल - BACK-LAYER) --- */
+        /* --- 1. FLOATING HEARTS ( - BACK-LAYER) --- */
         .floating-hearts {
             position: fixed;
             top: 0;
@@ -248,7 +248,7 @@
             100% { transform: translate(var(--translate-x, 0), -105vh) rotate(360deg); opacity: 0; }
         }
 
-        /* --- 2. FALLING HEARTS (ऊपर वाले दिल - FIRST LAYER) --- */
+        /* --- 2. FALLING HEARTS ( - FIRST LAYER) --- */
         #falling-hearts-container {
             position: fixed;
             width: 100%;
@@ -257,7 +257,7 @@
             left: 0;
             overflow: hidden;
             pointer-events: none;
-            z-index: 10; /* FIRST LAYER - कार्ड के आगे */
+            z-index: 10; /* FIRST LAYER -  */
         }
 
         @keyframes fadeIn {
@@ -281,7 +281,7 @@
 </head>
 <body>
 
-    <!-- 1. FLOATING HEARTS (नीचे से ऊपर जाने वाले बैकग्राउंड दिल) -->
+    <!-- 1. FLOATING HEARTS () -->
     <div class="floating-hearts">
         <div class="heart" style="left: 2%; --float-duration: 7s; --delay: 0s; --translate-x: 15px;">💝</div>
         <div class="heart" style="left: 8%; --float-duration: 9s; --delay: 2s; --translate-x: -10px;">💖</div>
@@ -403,7 +403,7 @@
             const heart = document.createElement('div');
             heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
             heart.style.position = 'absolute';
-            heart.style.fontSize = Math.random() * 12 + 11 + 'px'; // हल्के छोटे और एलिगेंट साइज
+            heart.style.fontSize = Math.random() * 12 + 11 + 'px'; // 
             heart.style.color = `rgba(255, ${Math.floor(Math.random() * 60 + 110)}, ${Math.floor(Math.random() * 100 + 130)}, ${Math.random() * 0.4 + 0.4})`;
             
             // वाइडर बिखराव (Scattered): लेफ्ट साइड (0-28%) | राइट साइड (72-98%)
@@ -416,9 +416,9 @@
             heart.style.zIndex = '10'; // FIRST LAYER
             heart.style.pointerEvents = 'none';
             
-            // स्पीड काफी कम कर दी (8 से 11 सेकंड तक हवा में झूलते हुए गिरेंगे)
+            // स्पीड 
             const animationDuration = Math.random() * 3 + 8; 
-            const horizontalSwing = Math.random() * 50 - 25; // नेचुरल बिखराव वेव
+            const horizontalSwing = Math.random() * 50 - 25; // 
             
             heart.animate([
                 { transform: `translateY(0) translateX(0) rotate(${Math.random() * 90 - 45}deg)` },
@@ -427,7 +427,7 @@
                 { transform: `translateY(110vh) translateX(${horizontalSwing}px) rotate(${Math.random() * 90 - 45}deg)` }
             ], {
                 duration: animationDuration * 1000,
-                easing: 'ease-out' // गिरने का मोशन सॉफ्ट रहेगा
+                easing: 'ease-out' // 
             });
             
             fallingHeartsContainer.appendChild(heart);
@@ -437,7 +437,7 @@
             }, animationDuration * 1000);
         }
         
-        // अंतराल बढ़ाकर 600ms किया ताकि एक साथ भीड़ न लगे (कम और प्यारे दिल दिखेंगे)
+        // अंतराल 
         setInterval(createFallingHeart, 600);
         /* ----------------------------------------------------------------- */
 
